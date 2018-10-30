@@ -34,8 +34,9 @@ title(['Mode 4, Freq = ' num2str(sqrt(D(4,4))/(2*pi)  ) 'Hz' ])
 disp('Press a key to continue!')  
 pause;
 filename = 'FourStoryShearBuilding.gif';
+dt = 0.04;
 
-for t=0:0.04:20  
+for t=0:dt:50  
    
     x1=U(:,1)*sin(sqrt(D(1,1))*t);
     x2=U(:,2)*sin(sqrt(D(2,2))*t);
@@ -47,19 +48,20 @@ for t=0:0.04:20
     set(p3(1),'Xdata', [x3;0]');
     set(p4(1),'Xdata', [x4;0]');        
     
-    pause(0.04);
+    pause(dt);
     
     frame = getframe(h);
     im = frame2im(frame);
     [imind,cm] = rgb2ind(im,256);
-    del = 0.04; 
+
     if t == 0;
-        imwrite(imind,cm,filename,'gif','Loopcount',inf,'DelayTime',del);
+        imwrite(imind,cm,filename,'gif','Loopcount',inf,'DelayTime',dt);
     else
-        imwrite(imind,cm,filename,'gif','WriteMode','append','DelayTime',del);
+        imwrite(imind,cm,filename,'gif','WriteMode','append','DelayTime',dt);
     end
     
 end 
 
 end
+
 
